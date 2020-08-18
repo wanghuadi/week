@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.mapper.StudentMapper">
+	
+	<select id="queryAll" parameterType="map" resultType="com.bw.bean.Student">
+		select s.*,c.cname from student s,classes c where s.cid=c.cid
+		<if test="sname != null and sname !=''">
+			and s.sname like '%${sname}%'
+		</if>
+		
+	</select>
+	
+	<select id="queryClasses" resultType="com.bw.bean.Classes">
+		select * from classes
+	</select>
+	
+	<insert id="addStudent" parameterType="com.bw.bean.Student">
+		insert into student
+		(sname,age,cid,gender)
+		values
+		(#{sname},#{age},#{cid},#{gender})
+	</insert>
+	
+	<select id="findById" parameterType="int" resultType="com.bw.bean.Student">
+		select * from student where sid=#{sid}
+	
+	</select>
+
+</mapper>
